@@ -1,36 +1,16 @@
 const functions = require('firebase-functions');
-
 const express = require('express');
 const path = require('path');
 const fs = require('fs').promises;
 const { createProxyMiddleware } = require('http-proxy-middleware');
-const { spawn } = require('child_process');
 
 const app = express();
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
-exports.app = functions.https.onRequest(app);
-
-
-
-// 프로젝트 서버 실행 함수
-async function startProjectServer(projectId) {
-    const projectPath = path.join(__dirname, 'projects', projectId, 'backend');
-    const serverProcess = spawn('node', ['server.js'], { cwd: projectPath });
-
-    serverProcess.stdout.on('data', (data) => {
-        console.log(`${projectId} stdout: ${data}`);
-    });
-
-    serverProcess.stderr.on('data', (data) => {
-        console.error(`${projectId} stderr: ${data}`);
-    });
-
-    // 서버가 실행될 때까지 대기
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-}
+// 프로젝트 서버 실행 함수 (Firebase Functions에서는 사용하지 않음)
+// async function startProjectServer(projectId) { ... }
 
 app.get('/', async (req, res) => {
     try {
@@ -48,26 +28,25 @@ app.get('/', async (req, res) => {
     }
 });
 
-// 프로젝트별 프록시 설정
+// 프로젝트별 프록시 설정 (Firebase Functions에서는 수정 필요)
 app.use('/project/:id', async (req, res, next) => {
     const projectId = req.params.id;
     const projectPath = path.join(__dirname, 'projects', projectId);
 
     try {
         await fs.access(path.join(projectPath, 'backend', 'server.js'));
-        // 백엔드가 있는 경우 프록시 설정
-        await startProjectServer(projectId);
-        createProxyMiddleware({
-            target: 'http://localhost:3001', // 프로젝트 서버 포트
-            changeOrigin: true
-        })(req, res, next);
+        // Firebase Functions에서는 프록시 설정을 다르게 해야 합니다.
+        // 여기서는 임시로 오류 메시지를 반환합니다.
+        res.status(500).send('Firebase Functions에서는 이 기능을 지원하지 않습니다.');
     } catch (error) {
         // 백엔드가 없는 경우 정적 파일 제공
         express.static(path.join(projectPath, 'frontend'))(req, res, next);
     }
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`서버가 http://localhost:${port} 에서 실행 중입니다.`);
-});
+// Firebase Functions에서는 app.listen()을 사용하지 않습니다.
+// const port = process.env.PORT || 3000;
+// app.listen(port, () => { ... });
+
+// 대신 다음과 같이 export 합니다:
+exports.app = functions.https.onRequest(app);
