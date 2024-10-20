@@ -1,3 +1,5 @@
+const functions = require('firebase-functions');
+
 const express = require('express');
 const path = require('path');
 const fs = require('fs').promises;
@@ -8,6 +10,10 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+
+exports.app = functions.https.onRequest(app);
+
+
 
 // 프로젝트 서버 실행 함수
 async function startProjectServer(projectId) {
