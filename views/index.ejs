@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+
+    <h1 class="text-center mb-4">토이 프로젝트</h1>
+
+    <div class="row">
+        <% projects.forEach(project=> { %>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= project.title %>
+                        </h5>
+                        <p class="card-text">
+                            <%= project.description %>
+                        </p>
+                        <a href="/project/<%= project.id %>/index.html" class="btn btn-primary" target="_blank">자세히
+                            보기</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        작성일: <%= new Date(project.created_at).toLocaleDateString() %>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+    </div>
+
+    <%- include('partials/footer') %>

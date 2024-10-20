@@ -1,0 +1,64 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #FFF5E6;
+    color: #4A4A4A;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+    background-color: #FFFAF0;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+    color: #FF6B6B;
+}
+
+.btn-primary {
+    background-color: #4ECDC4;
+    border-color: #4ECDC4;
+}
+
+.btn-primary:hover {
+    background-color: #45B7AA;
+    border-color: #45B7AA;
+}
+
+.btn-success {
+    background-color: #FF8C42;
+    border-color: #FF8C42;
+}
+
+.btn-success:hover {
+    background-color: #F17A3A;
+    border-color: #F17A3A;
+}
+
+.btn-info {
+    background-color: #6A8CAF;
+    border-color: #6A8CAF;
+}
+
+.btn-info:hover {
+    background-color: #5B7A9D;
+    border-color: #5B7A9D;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #FF6B6B;
+}
+
+.text-muted {
+    color: #95A5A6 !important;
+}

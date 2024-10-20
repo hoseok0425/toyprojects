@@ -1,0 +1,23 @@
+<%- include('partials/header') %>
+
+    <h1 class="mb-4">새 게시물 작성</h1>
+
+    <form action="/create" method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">제목</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">내용</label>
+            <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="link" class="form-label">프로젝트 링크 (선택사항)</label>
+            <input type="url" class="form-control" id="link" name="link">
+        </div>
+        <button type="submit" class="btn btn-primary">게시물 작성</button>
+    </form>
+
+    <a href="/" class="btn btn-secondary mt-3">목록으로 돌아가기</a>
+
+    <%- include('partials/footer') %>
